@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ata de Pré-Implantação Técnica e Operacional - Grupo Burguês. Formulário digital corporativo para validação em campo e emissão de relatório PDF.">
+  <meta name="author" content="Grupo Burguês - Tecnologia da Informação">
+  <title>Ata de Pré-Implantação Técnica e Operacional | Grupo Burguês</title>
+  
+  <!-- Tipografia Moderna Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Barra de Notificação / Feedback de Auto-save Flutuante (Oculta na impressão) -->
+  <div id="saveNotification" class="save-toast" role="status" aria-live="polite">
+    <svg class="toast-icon" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+    </svg>
+    <span id="saveNotificationText">Alterações salvas automaticamente</span>
+  </div>
+
+  <div class="page-wrapper">
+    <!-- Formulário Principal -->
+    <form id="ataForm" autocomplete="off" novalidate>
+
+      <!-- CABEÇALHO DO DOCUMENTO -->
+      <header class="doc-header">
+        <div class="header-top-row">
+          <div class="brand-identity">
+            <div class="brand-logo-badge">
+              <span class="brand-title">Grupo<strong>Burguês</strong></span>
+              <div class="brand-sub-decor">
+                <span class="decor-dot"></span>
+                <span class="decor-line"></span>
+                <span class="decor-tag">TECH & OPS</span>
+                <span class="decor-line"></span>
+                <span class="decor-dot"></span>
+              </div>
+            </div>
+          </div>
+          <div class="doc-type-pill">
+            <span class="status-indicator"></span>
+            DOCUMENTO OFICIAL DE IMPLANTAÇÃO
+          </div>
+        </div>
+
+        <h1 class="main-title">ATA DE PRÉ-IMPLANTAÇÃO TÉCNICA E OPERACIONAL</h1>
+        <p class="subtitle-desc print-hide">Preencha os dados da auditoria em campo. O progresso é salvo em tempo real no seu dispositivo.</p>
+      </header>
+
+      <!-- CARD 1: IDENTIFICAÇÃO DA UNIDADE E OPERAÇÃO -->
+      <section class="card section-card" id="secao-identificacao">
+        <div class="card-header">
+          <div class="header-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 7v1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7H3l2-4h14l2 4M5 21V10.85M19 21V10.85"/></svg>
+          </div>
+          <h2 class="card-title">1. Dados da Unidade e Horários</h2>
+        </div>
+
+        <div class="form-grid grid-cols-12">
+          <!-- Unidade / Praça -->
+          <div class="form-group col-span-12 md:col-span-8">
+            <label for="unidadePraca">Unidade / Praça <span class="required">*</span></label>
+            <input type="text" id="unidadePraca" name="unidadePraca" placeholder="Ex: Shopping Rio Sul - Loja 204" required>
+          </div>
+
+          <!-- Data da Implantação -->
+          <div class="form-group col-span-12 md:col-span-4">
+            <label for="dataImplantacao">Data da Implantação <span class="required">*</span></label>
+            <input type="date" id="dataImplantacao" name="dataImplantacao" required>
+          </div>
+
+          <!-- Razão Social -->
+          <div class="form-group col-span-12 md:col-span-7">
+            <label for="razaoSocial">Razão Social <span class="required">*</span></label>
+            <input type="text" id="razaoSocial" name="razaoSocial" placeholder="Ex: Burguês Gastronomia e Alimentos LTDA" required>
+          </div>
+
+          <!-- Horário de Atendimento -->
+          <div class="form-group col-span-12 md:col-span-5">
+            <label>Horário da Implantação <span class="required">*</span></label>
+            <div class="time-range-group">
+              <input type="time" id="horarioInicio" name="horarioInicio" aria-label="Horário inicial" required>
+              <span class="range-separator">às</span>
+              <input type="time" id="horarioFim" name="horarioFim" aria-label="Horário final" required>
+            </div>
+          </div>
+
+          <!-- CNPJ -->
+          <div class="form-group col-span-12 md:col-span-5">
+            <label for="cnpj">CNPJ <span class="required">*</span></label>
+            <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" maxlength="18" inputmode="numeric" required>
+          </div>
+
+          <!-- Lojas / Marcas -->
+          <div class="form-group col-span-12 md:col-span-7">
+            <label class="label-heading">Lojas / Marcas Atendidas nesta Implantação <span class="required">*</span></label>
+            <div class="brands-checkbox-grid">
+              <label class="custom-checkbox brand-item">
+                <input type="checkbox" name="marcas" value="O Burguês" id="marcaBurgues">
+                <span class="checkmark"></span>
+                <span class="brand-label">O Burguês</span>
+              </label>
+              <label class="custom-checkbox brand-item">
+                <input type="checkbox" name="marcas" value="Ex-Touro" id="marcaExTouro">
+                <span class="checkmark"></span>
+                <span class="brand-label">Ex-Touro</span>
+              </label>
+              <label class="custom-checkbox brand-item">
+                <input type="checkbox" name="marcas" value="Seu Vidal" id="marcaSeuVidal">
+                <span class="checkmark"></span>
+                <span class="brand-label">Seu Vidal</span>
+              </label>
+              <label class="custom-checkbox brand-item">
+                <input type="checkbox" name="marcas" value="B de Burger" id="marcaBdeBurger">
+                <span class="checkmark"></span>
+                <span class="brand-label">B de Burger</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARD 2: CONTATOS DOS RESPONSÁVEIS -->
+      <section class="card section-card" id="secao-contatos">
+        <div class="card-header">
+          <div class="header-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h2 class="card-title">2. Contatos Locais e Responsáveis</h2>
+        </div>
+
+        <div class="form-grid grid-cols-12">
+          <!-- Responsável Contatado -->
+          <div class="form-group col-span-12 md:col-span-7">
+            <label for="respContatado">Responsável Contatado <span class="required">*</span></label>
+            <input type="text" id="respContatado" name="respContatado" placeholder="Nome completo do responsável na loja" required>
+          </div>
+          <div class="form-group col-span-12 md:col-span-5">
+            <label for="contatoLocal">Contato Local (DDD + Tel/WhatsApp) <span class="required">*</span></label>
+            <input type="tel" id="contatoLocal" name="contatoLocal" placeholder="(00) 00000-0000" maxlength="15" inputmode="tel" required>
+          </div>
+
+          <!-- Responsável de TI -->
+          <div class="form-group col-span-12 md:col-span-7">
+            <label for="respTI">Responsável de TI <span class="required">*</span></label>
+            <input type="text" id="respTI" name="respTI" placeholder="Técnico ou gestor de TI responsável" required>
+          </div>
+          <div class="form-group col-span-12 md:col-span-5">
+            <label for="contatoTI">Contato TI <span class="required">*</span></label>
+            <input type="tel" id="contatoTI" name="contatoTI" placeholder="(00) 00000-0000" maxlength="15" inputmode="tel" required>
+          </div>
+
+          <!-- Responsável da Operação -->
+          <div class="form-group col-span-12 md:col-span-7">
+            <label for="respOperacao">Responsável da Operação <span class="required">*</span></label>
+            <input type="text" id="respOperacao" name="respOperacao" placeholder="Gerente de operações ou franqueado" required>
+          </div>
+          <div class="form-group col-span-12 md:col-span-5">
+            <label for="contatoOperacao">Contato Operação <span class="required">*</span></label>
+            <input type="tel" id="contatoOperacao" name="contatoOperacao" placeholder="(00) 00000-0000" maxlength="15" inputmode="tel" required>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARD 3: CHECKLIST DE VERIFICAÇÃO TÉCNICA E OPERACIONAL -->
+      <section class="card section-card" id="secao-checklist">
+        <div class="card-header">
+          <div class="header-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <h2 class="card-title">3. Checklist de Verificação Técnica e Operacional</h2>
+        </div>
+
+        <div class="checklist-container">
+          
+          <!-- ITEM 1: Conectividade / Internet -->
+          <div class="checklist-item-card">
+            <div class="item-scope-col">
+              <span class="item-badge">Item 01</span>
+              <h3 class="item-scope-title">Conectividade / Internet</h3>
+              <p class="item-scope-desc">Link principal e contingência 4G redundante</p>
+            </div>
+            
+            <div class="item-status-col">
+              <span class="col-micro-label">Status</span>
+              <div class="status-radio-group">
+                <label class="status-radio-btn radio-ok">
+                  <input type="radio" name="status_conectividade" value="OK" checked>
+                  <span class="radio-pill">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    OK
+                  </span>
+                </label>
+                <label class="status-radio-btn radio-pendente">
+                  <input type="radio" name="status_conectividade" value="Pendente">
+                  <span class="radio-pill">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+                    Pendente
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="item-specs-col">
+              <div class="specs-inline-group">
+                <span class="specs-label">IP Fixo:</span>
+                <div class="radio-toggle-group">
+                  <label class="radio-inline">
+                    <input type="radio" name="ip_fixo" value="Sim">
+                    <span>Sim</span>
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="ip_fixo" value="Não" checked>
+                    <span>Não</span>
+                  </label>
+                </div>
+              </div>
+              <div class="obs-inline-input">
+                <input type="text" name="obs_conectividade" id="obs_conectividade" placeholder="Obs: Provedor, velocidade ou detalhes do link..." class="sub-input">
+              </div>
+            </div>
+          </div>
+
+          <!-- ITEM 2: Terminais de PDV -->
+          <div class="checklist-item-card">
+            <div class="item-scope-col">
+              <span class="item-badge">Item 02</span>
+              <h3 class="item-scope-title">Terminais de PDV & Rede</h3>
+              <p class="item-scope-desc">Terminais de PDV, periféricos e pontos de rede cabeada</p>
+            </div>
+            
+            <div class="item-status-col">
+              <span class="col-micro-label">Status</span>
+              <div class="status-radio-group">
+                <label class="status-radio-btn radio-ok">
+                  <input type="radio" name="status_pdv" value="OK" checked>
+                  <span class="radio-pill">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    OK
+                  </span>
+                </label>
+                <label class="status-radio-btn radio-pendente">
+                  <input type="radio" name="status_pdv" value="Pendente">
+                  <span class="radio-pill">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+                    Pendente
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="item-specs-col">
+              <div class="specs-inline-group">
+                <label for="pdvs_testados" class="specs-label">PDVs Testados:</label>
+                <input type="text" id="pdvs_testados" name="pdvs_testados" placeholder="Ex: 03 caixas" class="sub-input input-narrow">
+              </div>
+              <div class="obs-inline-input">
+                <input type="text" name="obs_pdv" id="obs_pdv" placeholder="Obs: Teclado, leitor de código, gavetas..." class="sub-input">
+              </div>
+            </div>
+          </div>
+
+          <!-- ITEM 3: Impressoras de Produção e Fiscais -->
+          <div class="checklist-item-card">
+            <div class="item-scope-col">
+              <span class="item-badge">Item 03</span>
+              <h3 class="item-scope-title">Impressoras de Produção & Fiscais</h3>
+              <p class="item-scope-desc">Cozinha / balcão / expedição e fechamento</p>
+            </div>
+            
+            <div class="item-status-col">
+              <span class="col-micro-label">Status</span>
+              <div class="status-radio-group">
+                <label class="status-radio-btn radio-ok">
+                  <input type="radio" name="status_impressoras" value="OK" checked>
+                  <span class="radio-pill">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    OK
+                  </span>
+                </label>
+                <label class="status-radio-btn radio-pendente">
+                  <input type="radio" name="status_impressoras" value="Pendente">
+                  <span class="radio-pill">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+                    Pendente
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="item-specs-col">
+              <div class="specs-inline-group">
+                <label class="custom-checkbox sub-checkbox">
+                  <input type="checkbox" name="imp_comunicacao" id="imp_comunicacao" value="OK">
+                  <span class="checkmark"></span>
+                  <span>Comunicação: OK</span>
+                </label>
+                <label class="custom-checkbox sub-checkbox">
+                  <input type="checkbox" name="imp_corte" id="imp_corte" value="OK">
+                  <span class="checkmark"></span>
+                  <span>Corte: OK</span>
+                </label>
+              </div>
+              <div class="obs-inline-input">
+                <input type="text" name="obs_impressoras" id="obs_impressoras" placeholder="Obs: Portas de rede, guilhotina, bobinas..." class="sub-input">
+              </div>
+            </div>
+          </div>
+
+          <!-- ITEM 4: Carga de Cardápios -->
+          <div class="checklist-item-card">
+            <div class="item-scope-col">
+              <span class="item-badge">Item 04</span>
+              <h3 class="item-scope-title">Carga de Cardápios & Precificação</h3>
+              <p class="item-scope-desc">Carga de cardápios, precificação e integradores por marca</p>
+            </div>
+            
+            <div class="item-status-col">
+              <span class="col-micro-label">Status</span>
+              <div class="status-radio-group">
+                <label class="status-radio-btn radio-ok">
+                  <input type="radio" name="status_cardapio" value="OK" checked>
+                  <span class="radio-pill">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    OK
+                  </span>
+                </label>
+                <label class="status-radio-btn radio-pendente">
+                  <input type="radio" name="status_cardapio" value="Pendente">
+                  <span class="radio-pill">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+                    Pendente
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="item-specs-col">
+              <div class="specs-inline-group">
+                <label class="custom-checkbox sub-checkbox">
+                  <input type="checkbox" name="cardapio_sincronizacao" id="cardapio_sincronizacao" value="OK">
+                  <span class="checkmark"></span>
+                  <span>Sincronização: OK</span>
+                </label>
+              </div>
+              <div class="obs-inline-input">
+                <input type="text" name="obs_cardapio" id="obs_cardapio" placeholder="Obs: Grupos de adicionais, combos, estoques..." class="sub-input">
+              </div>
+            </div>
+          </div>
+
+          <!-- ITEM 5: Integração Delivery -->
+          <div class="checklist-item-card">
+            <div class="item-scope-col">
+              <span class="item-badge">Item 05</span>
+              <h3 class="item-scope-title">Integração Delivery & Canais</h3>
+              <p class="item-scope-desc">Integração delivery e canais próprios de venda (iFood / Próprio)</p>
+            </div>
+            
+            <div class="item-status-col">
+              <span class="col-micro-label">Status</span>
+              <div class="status-radio-group">
+                <label class="status-radio-btn radio-ok">
+                  <input type="radio" name="status_delivery" value="OK" checked>
+                  <span class="radio-pill">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    OK
+                  </span>
+                </label>
+                <label class="status-radio-btn radio-pendente">
+                  <input type="radio" name="status_delivery" value="Pendente">
+                  <span class="radio-pill">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+                    Pendente
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="item-specs-col">
+              <div class="specs-inline-group">
+                <label for="pedido_teste_id" class="specs-label">Pedido Teste ID:</label>
+                <input type="text" id="pedido_teste_id" name="pedido_teste_id" placeholder="Ex: #IF-9823412 ou Teste-01" class="sub-input input-wide">
+              </div>
+              <div class="obs-inline-input">
+                <input type="text" name="obs_delivery" id="obs_delivery" placeholder="Obs: Aceite automático, despacho, impressão..." class="sub-input">
+              </div>
+            </div>
+          </div>
+
+          <!-- ITEM 6: Desativação do OPDV Antigo -->
+          <div class="checklist-item-card highlight-card">
+            <div class="item-scope-col">
+              <span class="item-badge alert-badge">Item Crítico 06</span>
+              <h3 class="item-scope-title">Desativação / Virada OPDV Antigo</h3>
+              <p class="item-scope-desc">Virada definitiva da integração e corte do legado</p>
+            </div>
+            
+            <div class="item-status-col">
+              <span class="col-micro-label">Status</span>
+              <div class="status-radio-group">
+                <label class="status-radio-btn radio-ok">
+                  <input type="radio" name="status_opdv_antigo" value="OK" checked>
+                  <span class="radio-pill">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    OK
+                  </span>
+                </label>
+                <label class="status-radio-btn radio-pendente">
+                  <input type="radio" name="status_opdv_antigo" value="Pendente">
+                  <span class="radio-pill">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+                    Pendente
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="item-specs-col">
+              <div class="specs-inline-group">
+                <span class="specs-label">Desativação confirmada em painel / sistema:</span>
+                <div class="radio-toggle-group">
+                  <label class="radio-inline">
+                    <input type="radio" name="desativacao_painel_sistema" value="Sim" checked>
+                    <span>Sim</span>
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="desativacao_painel_sistema" value="Não">
+                    <span>Não</span>
+                  </label>
+                </div>
+              </div>
+              <div class="obs-inline-input">
+                <input type="text" name="obs_opdv_antigo" id="obs_opdv_antigo" placeholder="Obs: Chave de API revogada, serviço pausado..." class="sub-input">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CARD 4: EVIDÊNCIA TÉCNICA - INTEGRAÇÃO DO OPDV DESATIVADO -->
+      <section class="card section-card" id="secao-evidencia">
+        <div class="card-header">
+          <div class="header-icon icon-critical">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </div>
+          <h2 class="card-title">4. Evidência Técnica: Integração do OPDV Desativado</h2>
+        </div>
+
+        <div class="form-grid grid-cols-12">
+          <!-- Status e Data/Hora -->
+          <div class="form-group col-span-12 md:col-span-6">
+            <label class="label-heading">Status da Integração OPDV <span class="required">*</span></label>
+            <div class="status-activation-box">
+              <label class="custom-checkbox success-check">
+                <input type="checkbox" name="opdv_desativado_sucesso" id="opdv_desativado_sucesso" value="DESATIVADO COM SUCESSO" checked>
+                <span class="checkmark"></span>
+                <span class="bold-text">DESATIVADO COM SUCESSO</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group col-span-12 md:col-span-6">
+            <label for="dataHoraDesativacao">Data e Hora da Desativação <span class="required">*</span></label>
+            <input type="datetime-local" id="dataHoraDesativacao" name="dataHoraDesativacao" required>
+          </div>
+
+          <!-- Upload de Imagem e Preview da Evidência -->
+          <div class="form-group col-span-12">
+            <label class="label-heading">Evidência / Print da Desativação do OPDV <span class="required">*</span></label>
+            <p class="input-helper print-hide">Anexe a imagem ou dê <strong>Ctrl+V</strong> para colar diretamente o print da tela do sistema.</p>
+
+            <!-- Container Interativo de Upload -->
+            <div class="upload-dropzone" id="dropzoneEvidencia">
+              <input type="file" id="inputFotoEvidencia" name="inputFotoEvidencia" accept="image/*" class="visually-hidden">
+              
+              <!-- Estado sem imagem -->
+              <div id="uploadPlaceholder" class="dropzone-placeholder">
+                <div class="dropzone-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                </div>
+                <div class="dropzone-text">
+                  <span class="btn-fake-upload">Clique para selecionar imagem</span> ou arraste o arquivo aqui
+                </div>
+                <span class="dropzone-hint">Dica: Você pode copiar o print da tela e pressionar <strong>Ctrl + V</strong> nesta página.</span>
+              </div>
+
+              <!-- Estado com imagem (Preview) -->
+              <div id="previewContainer" class="preview-box hidden">
+                <img id="imgPreview" alt="Print de comprovação da desativação do OPDV" class="evidence-img">
+                <div class="preview-actions print-hide">
+                  <button type="button" id="btnRemoverFoto" class="btn-subtle-danger">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                    Substituir / Remover Print
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Na impressão, se não houver foto, exibe a caixa tradicional da Ata -->
+            <div id="printFallbackBox" class="print-fallback-box print-only">
+              [ Espaço reservado para colagem / anexo do print comprovando a desativação da integração do OPDV ]
+            </div>
+          </div>
+
+          <!-- Hash ou ID da Desativação -->
+          <div class="form-group col-span-12">
+            <label for="hashDesativacao">Observações / Hash ou ID da Desativação <span class="required">*</span></label>
+            <input type="text" id="hashDesativacao" name="hashDesativacao" placeholder="Ex: HASH-OPDV-2026-X89B2144A ou Protocolo #89421" required>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARD 5: RELATO DA VISITA, ALINHAMENTOS E PENDÊNCIAS -->
+      <section class="card section-card" id="secao-relato">
+        <div class="card-header">
+          <div class="header-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <h2 class="card-title">5. Relato da Visita, Alinhamentos e Pendências</h2>
+        </div>
+
+        <div class="form-grid grid-cols-12">
+          <div class="form-group col-span-12">
+            <label for="relatoVisita">Descreva detalhadamente o processo da visita técnica, alinhamentos com a equipe e eventuais pendências:</label>
+            <div class="textarea-wrapper">
+              <textarea id="relatoVisita" name="relatoVisita" rows="6" placeholder="1. Implantação realizada conforme cronograma técnico...&#10;2. Pendências e alinhamentos operacionais..."></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARD 6: SUPORTE REMOTO E ATENDIMENTO -->
+      <section class="card section-card support-card" id="secao-suporte">
+        <div class="card-header border-none">
+          <div class="header-icon icon-support">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <h2 class="card-title">Canais de Suporte Remoto & Atendimento Grupo Burguês</h2>
+        </div>
+
+        <div class="support-channels-grid">
+          <div class="support-box">
+            <div class="support-badge">Atendimento 100% Remoto</div>
+            <div class="support-name">Suporte Técnico Remoto Grupo Burguês</div>
+            <a href="https://wa.me/5521967290136" target="_blank" rel="noopener noreferrer" class="support-contact-link">
+              <span class="whatsapp-badge">WhatsApp</span>
+              <strong class="phone-number">(21) 96729-0136</strong>
+            </a>
+          </div>
+
+          <div class="support-box">
+            <div class="support-badge badge-warning">Exclusivo para Dúvidas</div>
+            <div class="support-name">Chat de Dúvidas (3S)</div>
+            <a href="https://wa.me/5512983195497" target="_blank" rel="noopener noreferrer" class="support-contact-link">
+              <span class="whatsapp-badge">WhatsApp</span>
+              <strong class="phone-number">(12) 98319-5497</strong>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARD 7: ASSINATURAS DOS RESPONSÁVEIS -->
+      <section class="card section-card signatures-card" id="secao-assinaturas">
+        <div class="card-header">
+          <div class="header-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+          </div>
+          <h2 class="card-title">6. Assinaturas e Concordância dos Responsáveis</h2>
+        </div>
+
+        <p class="signatures-disclaimer print-hide">
+          Assine diretamente na tela usando o dedo (celular/tablet) ou o mouse. Se preferir colher fisicamente, o traço impresso sairá perfeitamente alinhado.
+        </p>
+
+        <div class="signatures-grid">
+          
+          <!-- BLOCO 1: RESPONSÁVEL DE TI -->
+          <div class="signature-block">
+            <div class="sig-header-label">RESPONSÁVEL DE TI</div>
+            
+            <div class="canvas-wrapper">
+              <canvas id="sigCanvasTI" width="360" height="130" class="signature-pad" aria-label="Área de assinatura do Responsável de TI"></canvas>
+              <div class="sig-canvas-footer print-hide">
+                <span class="canvas-hint">Rubrica digital</span>
+                <button type="button" class="btn-clear-sig" data-target="sigCanvasTI">Limpar</button>
+              </div>
+            </div>
+
+            <div class="sig-input-group">
+              <label for="sigNomeTI">Nome:</label>
+              <input type="text" id="sigNomeTI" name="sigNomeTI" placeholder="Nome do técnico" class="sig-field">
+            </div>
+            <div class="sig-input-group">
+              <label for="sigContatoTI">Contato:</label>
+              <input type="tel" id="sigContatoTI" name="sigContatoTI" placeholder="(00) 00000-0000" maxlength="15" class="sig-field">
+            </div>
+          </div>
+
+          <!-- BLOCO 2: RESPONSÁVEL DA OPERAÇÃO -->
+          <div class="signature-block">
+            <div class="sig-header-label">RESPONSÁVEL DA OPERAÇÃO</div>
+            
+            <div class="canvas-wrapper">
+              <canvas id="sigCanvasOperacao" width="360" height="130" class="signature-pad" aria-label="Área de assinatura do Responsável da Operação"></canvas>
+              <div class="sig-canvas-footer print-hide">
+                <span class="canvas-hint">Rubrica digital</span>
+                <button type="button" class="btn-clear-sig" data-target="sigCanvasOperacao">Limpar</button>
+              </div>
+            </div>
+
+            <div class="sig-input-group">
+              <label for="sigNomeOperacao">Nome:</label>
+              <input type="text" id="sigNomeOperacao" name="sigNomeOperacao" placeholder="Nome do responsável" class="sig-field">
+            </div>
+            <div class="sig-input-group">
+              <label for="sigContatoOperacao">Contato:</label>
+              <input type="tel" id="sigContatoOperacao" name="sigContatoOperacao" placeholder="(00) 00000-0000" maxlength="15" class="sig-field">
+            </div>
+          </div>
+
+          <!-- BLOCO 3: RESPONSÁVEL DA UNIDADE -->
+          <div class="signature-block">
+            <div class="sig-header-label">RESPONSÁVEL DA UNIDADE</div>
+            
+            <div class="canvas-wrapper">
+              <canvas id="sigCanvasUnidade" width="360" height="130" class="signature-pad" aria-label="Área de assinatura do Responsável da Unidade"></canvas>
+              <div class="sig-canvas-footer print-hide">
+                <span class="canvas-hint">Rubrica digital</span>
+                <button type="button" class="btn-clear-sig" data-target="sigCanvasUnidade">Limpar</button>
+              </div>
+            </div>
+
+            <div class="sig-input-group">
+              <label for="sigNomeUnidade">Nome:</label>
+              <input type="text" id="sigNomeUnidade" name="sigNomeUnidade" placeholder="Nome do gerente local" class="sig-field">
+            </div>
+            <div class="sig-input-group">
+              <label for="sigContatoUnidade">Contato:</label>
+              <input type="tel" id="sigContatoUnidade" name="sigContatoUnidade" placeholder="(00) 00000-0000" maxlength="15" class="sig-field">
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- BARRA DE AÇÕES FLUTUANTE (FIXA EM BAIXO NO MOBILE / DESKTOP - OCULTA NA IMPRESSÃO) -->
+      <footer class="floating-action-bar print-hide">
+        <div class="bar-inner-container">
+          <div class="auto-save-status">
+            <span class="status-pulse-dot"></span>
+            <span class="status-legend">Auto-save ativo</span>
+          </div>
+
+          <div class="actions-group">
+            <button type="button" id="btnLimpar" class="btn-secondary" title="Limpar todos os campos e reiniciar formulário">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+              <span>Limpar Formulário</span>
+            </button>
+
+            <button type="button" id="btnExportarPdf" class="btn-primary" title="Gerar visualização e exportar em formato PDF">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd"/></svg>
+              <span>Finalizar e Salvar PDF</span>
+            </button>
+          </div>
+        </div>
+      </footer>
+
+    </form>
+  </div>
+
+  <!-- MODAL DE CONFIRMAÇÃO DE LIMPEZA (PRINT HIDE) -->
+  <dialog id="modalConfirmarLimpeza" class="modal-dialog print-hide">
+    <div class="modal-content">
+      <div class="modal-icon-warning">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <h3 class="modal-title">Deseja realmente limpar todos os dados?</h3>
+      <p class="modal-desc">Todas as informações preenchidas, anexos e assinaturas digitais serão apagados do formulário e do salvamento local.</p>
+      <div class="modal-actions">
+        <button type="button" id="btnCancelarLimpeza" class="btn-modal-cancel">Cancelar</button>
+        <button type="button" id="btnConfirmarLimpeza" class="btn-modal-confirm">Sim, limpar tudo</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
