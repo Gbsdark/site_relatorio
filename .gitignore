@@ -1,0 +1,21 @@
+# Ambientes e Logs
+node_modules/
+.env
+.env.local
+*.log
+
+# Arquivos do Sistema Operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Backups e Temporários
+*.tmp
+*.bak
+scratch/
+
+# IDE e Ferramentas
+.vscode/
+.idea/
+.gemini/
+.skills/
